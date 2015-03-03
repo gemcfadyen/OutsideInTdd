@@ -6,10 +6,10 @@ import java.util.List;
  * Created by Georgina on 27/02/2015.
  */
 public class AccountStatement {
-    public void deposit(int i) {
+    public void deposit(Transaction transaction) {
     }
 
-    public void withdraw(int i) {
+    public void withdraw(Transaction transaction) {
 
     }
 

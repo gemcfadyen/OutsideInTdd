@@ -4,9 +4,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.anyList;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.verify;
 
@@ -16,36 +17,34 @@ public class AccountTest {
     @Mock
     private AccountStatement accountStatement;
     @Mock
-    private AccountConsole accountConsole;
+    private AccountDisplay accountDisplay;
+    @Mock
+    private DateService dateService;
     @Mock
     private PrintManager printManager;
 
     @Before
     public void setUp() throws Exception {
-        account = new Account(accountStatement, accountConsole);
+        account = new Account(accountStatement, accountDisplay, dateService);
     }
 
     @Test
     public void deposit_should_be_transferred_to_statement() {
+        when(dateService.now()).thenReturn("10/08/2013");
         account.deposit(5000);
-        verify(accountStatement).deposit(5000);
+        verify(accountStatement).deposit(new Transaction("10/08/2013", 5000));
     }
 
     @Test
     public void withdraw_should_be_transferred_to_statement() {
+        when(dateService.now()).thenReturn("11/09/2013");
         account.withdraw(1000);
-        verify(accountStatement).withdraw(1000);
-    }
-
-    @Test
-    public void print_statement_should_ask_the_statement() {
-        account.printStatement();
-        verify(accountStatement).getTransactions();
+        verify(accountStatement).withdraw(new Transaction("11/09/2013", 1000));
     }
 
     @Test
     public void print_statement_should_tell_console_to_print() {
         account.printStatement();
-        verify(accountConsole).printLine(anyString());
+        verify(accountDisplay).display(anyList());
     }
 }

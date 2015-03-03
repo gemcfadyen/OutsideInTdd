@@ -1,27 +1,30 @@
 package london;
 
+import java.util.List;
+
 /**
  * Created by Georgina on 27/02/2015.
  */
 public class Account {
     private final AccountStatement statement;
-    private final AccountConsole console;
+    private final AccountDisplay display;
+    private final DateService dateService;
 
-    public Account(AccountStatement statement, AccountConsole accountConsole) {
+    public Account(AccountStatement statement, AccountDisplay accountDisplay, DateService dateService) {
         this.statement = statement;
-        this.console = accountConsole;
+        this.display = accountDisplay;
+        this.dateService = dateService;
     }
 
     public void deposit(int amount) {
-        statement.deposit(amount);
+        statement.deposit(new Transaction(dateService.now(), amount));
     }
 
     public void withdraw(int amount) {
-        statement.withdraw(amount);
+        statement.withdraw(new Transaction(dateService.now(), amount));
     }
 
     public void printStatement() {
-        statement.getTransactions();
-        console.printLine("DATE | AMOUNT | BALANCE");
+       display.display(statement.getTransactions());
     }
 }
