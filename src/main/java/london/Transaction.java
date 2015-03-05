@@ -7,9 +7,9 @@ import java.util.Objects;
  */
 public class Transaction {
     private String date;
-    private int amount;
+    private double amount;
 
-    public Transaction(String date, int amount) {
+    public Transaction(String date, double amount) {
         this.date = date;
         this.amount = amount;
     }
@@ -26,7 +26,20 @@ public class Transaction {
     }
 
     @Override
+    public String toString() {
+        return date + " | " + "" + amount;
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(date, amount);
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public double getAmount() {
+        return amount;
     }
 }

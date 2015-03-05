@@ -32,10 +32,10 @@ public class AccountAcceptanceTest {
 
     @Test
     public void should_print_statement_containing_all_transactions() {
-        List<String> mockedTransactions = new ArrayList<>();
-        mockedTransactions.add("10/04/2014 | 500.00 | 1400.00");
-        mockedTransactions.add("02/04/2014 | -100.00 | 900.00");
-        mockedTransactions.add("01/04/2014 | 1000.00 | 1000.00");
+        List<Transaction> mockedTransactions = new ArrayList<>();
+        mockedTransactions.add(new Transaction("10/04/2014", 500.00));
+        mockedTransactions.add(new Transaction("02/04/2014", -100.00));
+        mockedTransactions.add(new Transaction("01/04/2014", 1000.00));
         when(accountStatement.getTransactions()).thenReturn(mockedTransactions);
 
         account.deposit(1000);
@@ -45,8 +45,8 @@ public class AccountAcceptanceTest {
         account.printStatement();
 
         verify(console).println("DATE | AMOUNT | BALANCE");
-        verify(console).println("10/04/2014 | 500.00 | 1400.00");
-        verify(console).println("02/04/2014 | -100.00 | 900.00");
-        verify(console).println("01/04/2014 | 1000.00 | 1000.00");
+        verify(console).println("10/04/2014 | 500.0 | 1400.0");
+        verify(console).println("02/04/2014 | -100.0 | 900.0");
+        verify(console).println("01/04/2014 | 1000.0 | 1000.0");
     }
 }

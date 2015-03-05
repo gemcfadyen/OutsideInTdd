@@ -13,7 +13,7 @@ public class AccountStatement {
 
     }
 
-    public List<String> getTransactions() {
+    public List<Transaction> getTransactions() {
         return null;
     }
 }
