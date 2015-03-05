@@ -20,9 +20,8 @@ public class AccountConsole implements AccountDisplay {
         double balance = 0;
         Collections.reverse(statements);
         for (Transaction statement : statements) {
-            System.out.println("statement: " + statement.toString());
             double transactionAmount = statement.getAmount();
-            balance+= transactionAmount;
+            balance+=transactionAmount;
             console.println(statement.getDate() + " | " + transactionAmount + " | " + balance);
         }
     }

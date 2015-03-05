@@ -4,12 +4,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Matchers.anyList;
-import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AccountTest {
@@ -24,7 +23,7 @@ public class AccountTest {
     private PrintManager printManager;
 
     @Before
-    public void setUp() throws Exception {
+    public void setup() throws Exception {
         account = new Account(accountStatement, accountDisplay, dateService);
     }
 
@@ -39,7 +38,7 @@ public class AccountTest {
     public void withdraw_should_be_transferred_to_statement() {
         when(dateService.now()).thenReturn("11/09/2013");
         account.withdraw(1000);
-        verify(accountStatement).withdraw(new Transaction("11/09/2013", 1000));
+        verify(accountStatement).withdraw(new Transaction("11/09/2013", -1000));
     }
 
     @Test
