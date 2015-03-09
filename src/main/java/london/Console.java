@@ -5,6 +5,6 @@ package london;
  */
 public class Console {
     public void println(String statement) {
-
+        System.out.println(statement);
     }
 }
