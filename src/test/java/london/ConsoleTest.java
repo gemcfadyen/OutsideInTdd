@@ -27,7 +27,7 @@ public class ConsoleTest {
     }
 
     @Test
-    public void shouldPrintToTheScreen() {
+    public void should_print_to_the_screen() {
         Console console = new Console();
 
         console.println("Hello World");

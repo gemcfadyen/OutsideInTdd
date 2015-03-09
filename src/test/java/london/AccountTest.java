@@ -19,8 +19,6 @@ public class AccountTest {
     private AccountDisplay accountDisplay;
     @Mock
     private DateService dateService;
-    @Mock
-    private PrintManager printManager;
 
     @Before
     public void setup() throws Exception {
