@@ -38,8 +38,8 @@ public class AccountConsoleTest {
     @Test
     public void should_order_statement_entries() {
         List<Transaction> statements = new ArrayList<>();
-        statements.add(new Transaction("20/01/2014", 100));
         statements.add(new Transaction("19/01/2014", -100));
+        statements.add(new Transaction("20/01/2014", 100));
 
         accountConsole.display(statements);
 

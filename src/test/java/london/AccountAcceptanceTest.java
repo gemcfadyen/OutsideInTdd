@@ -19,25 +19,21 @@ import static org.mockito.Mockito.when;
 public class AccountAcceptanceTest {
     private Account account;
     private AccountDisplay display;
+    private AccountStatement accountStatement;
 
     @Mock private Console console;
-    @Mock private AccountStatement accountStatement;
     @Mock private DateService dateService;
 
     @Before
     public void setup() {
         display = new AccountConsole(console);
+        accountStatement = new AccountStatement();
         account = new Account(accountStatement, display, dateService);
+        when(dateService.now()).thenReturn("01/04/2014", "02/04/2014", "10/04/2014");
     }
 
     @Test
     public void should_print_statement_containing_all_transactions() {
-        List<Transaction> mockedTransactions = new ArrayList<>();
-        mockedTransactions.add(new Transaction("10/04/2014", 500.00));
-        mockedTransactions.add(new Transaction("02/04/2014", -100.00));
-        mockedTransactions.add(new Transaction("01/04/2014", 1000.00));
-        when(accountStatement.getTransactions()).thenReturn(mockedTransactions);
-
         account.deposit(1000);
         account.withdraw(100);
         account.deposit(500);

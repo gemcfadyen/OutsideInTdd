@@ -1,5 +1,6 @@
 package london;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,12 +18,24 @@ public class AccountConsole implements AccountDisplay {
     @Override
     public void display(List<Transaction> statements) {
         console.println(STATEMENT_HEADER);
+
+        List<Transaction> originalList = new ArrayList<>(statements);
         double balance = 0;
+        int index = originalList.size() - 1;
         Collections.reverse(statements);
         for (Transaction statement : statements) {
             double transactionAmount = statement.getAmount();
-            balance+=transactionAmount;
+            balance = getPreviousEntries(originalList, index) + transactionAmount;
+            index--;
             console.println(statement.getDate() + " | " + transactionAmount + " | " + balance);
         }
+    }
+
+    private double getPreviousEntries(List<Transaction> originalList, int index) {
+        double balance = 0;
+        for (int i = 0; i < index; i++) {
+            balance += originalList.get(i).getAmount();
+        }
+        return balance;
     }
 }
