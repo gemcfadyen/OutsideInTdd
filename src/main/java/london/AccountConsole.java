@@ -20,20 +20,24 @@ public class AccountConsole implements AccountDisplay {
         console.println(STATEMENT_HEADER);
 
         List<Transaction> originalList = new ArrayList<>(statements);
-        double balance = 0;
-        int index = originalList.size() - 1;
+        int lastTransactionIndexToConsider = indexOfLastTransaction(originalList);
+
         Collections.reverse(statements);
         for (Transaction statement : statements) {
             double transactionAmount = statement.getAmount();
-            balance = getPreviousEntries(originalList, index) + transactionAmount;
-            index--;
-            console.println(statement.getDate() + " | " + transactionAmount + " | " + balance);
+            console.println(statement.getDate()
+                    + " | " + transactionAmount
+                    + " | " + getCurrentBalance(originalList, lastTransactionIndexToConsider--));
         }
     }
 
-    private double getPreviousEntries(List<Transaction> originalList, int index) {
+    private int indexOfLastTransaction(List<Transaction> originalList) {
+        return originalList.size() - 1;
+    }
+
+    private double getCurrentBalance(List<Transaction> originalList, int index) {
         double balance = 0;
-        for (int i = 0; i < index; i++) {
+        for (int i = 0; i <= index; i++) {
             balance += originalList.get(i).getAmount();
         }
         return balance;
